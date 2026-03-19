@@ -1,0 +1,15 @@
+.hero { background: #0a6e5c; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(10,110,92,0.22); }
+.hero::before { content: ''; position: absolute; right: -20px; top: -40px; width: 160px; height: 160px; border-radius: 50% !important; background: rgba(255,255,255,0.05); }
+.hero-greeting { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.4px; margin-bottom: 4px; }
+.hero-sub { font-size: 12px; color: rgba(255,255,255,0.65); margin-bottom: 16px; }
+.hero-btn { padding: 7px 16px; background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.25); font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+.hero-btn:hover { background: rgba(255,255,255,0.25); }
+.hero-num { font-size: 48px; font-weight: 800; color: #fff; letter-spacing: -3px; line-height: 1; }
+.hero-lbl { font-size: 10px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; text-align: right; }
+.log-row { display: flex; align-items: center; gap: 10px; padding: 8px 4px; border-bottom: 1px solid rgba(10,110,92,0.08); cursor: pointer; transition: background 0.12s; }
+.log-row:hover { background: rgba(10,110,92,0.03); }
+.pain-chip { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.chart { display: flex; align-items: flex-end; gap: 7px; height: 80px; }
+.chart-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.chart-bar { width: 100%; }
+.sdot { width: 15px; height: 15px; }
