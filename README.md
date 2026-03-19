@@ -11,7 +11,7 @@ Heal I/O is a full-stack personal health tracker that transforms daily health lo
 | Name | GitHub |
 |------|--------|
 | Deeksha Manjunatha Bankapur | [@deeksha26052003](https://github.com/deeksha26052003) |
-| Shriya Yarrapureddy Sarath | [@shriya-username](https://github.com/shriya-username) |
+| Shriya Yarrapureddy Sarath | [@shriyays](https://github.com/shriyays) |
 
 ---
 
