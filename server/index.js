@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const http = require('http');
+const path = require('path');
 const { Server } = require('socket.io');
 
 const { connectDB } = require('./db');
@@ -55,6 +56,13 @@ connectDB()
     app.use('/api/visits', visitRoutes);
 
     app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
+
+    // Serve React frontend in production
+    if (process.env.NODE_ENV === 'production') {
+      const clientDist = path.join(__dirname, '../client/dist');
+      app.use(express.static(clientDist));
+      app.get('*', (_req, res) => res.sendFile(path.join(clientDist, 'index.html')));
+    }
 
     // Socket.io — medication reminder notifications
     io.on('connection', (socket) => {
