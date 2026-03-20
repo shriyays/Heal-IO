@@ -261,6 +261,10 @@ Visit [http://localhost:5173](http://localhost:5173)
 
 ---
 
+## Link to youtube demo video : 
+
+https://youtu.be/m1jSB1HtMEA
+
 ## Environment Variables
 
 Create `server/.env` based on `server/.env.example`:
