@@ -5,7 +5,11 @@ async function getVisits(req, res) {
   try {
     const db = getDB();
     const userId = new ObjectId(req.user._id);
-    const visits = await db.collection('doctor_visits').find({ userId }).sort({ visitDate: -1 }).toArray();
+    const visits = await db
+      .collection('doctor_visits')
+      .find({ userId })
+      .sort({ visitDate: -1 })
+      .toArray();
     res.json(visits);
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
@@ -14,7 +18,8 @@ async function getVisits(req, res) {
 
 async function addVisit(req, res) {
   const { doctorName, specialty, visitDate, notes, prescriptions, followUpDate } = req.body;
-  if (!doctorName || !visitDate) return res.status(400).json({ error: 'doctorName and visitDate required' });
+  if (!doctorName || !visitDate)
+    return res.status(400).json({ error: 'doctorName and visitDate required' });
 
   try {
     const db = getDB();
@@ -44,11 +49,13 @@ async function updateVisit(req, res) {
     delete updates._id;
     delete updates.userId;
 
-    const result = await db.collection('doctor_visits').findOneAndUpdate(
-      { _id: new ObjectId(id), userId },
-      { $set: { ...updates, updatedAt: new Date() } },
-      { returnDocument: 'after' }
-    );
+    const result = await db
+      .collection('doctor_visits')
+      .findOneAndUpdate(
+        { _id: new ObjectId(id), userId },
+        { $set: { ...updates, updatedAt: new Date() } },
+        { returnDocument: 'after' }
+      );
     if (!result) return res.status(404).json({ error: 'Not found' });
     res.json(result);
   } catch (err) {

@@ -40,16 +40,40 @@ export default function Register() {
         <h2>Create account</h2>
         <p className="sub">Start tracking your health today</p>
 
-        {error && <div className="toast error" role="alert" style={{ marginBottom: 14 }}>{error}</div>}
+        {error && (
+          <div className="toast error" role="alert" style={{ marginBottom: 14 }}>
+            {error}
+          </div>
+        )}
 
         <form className="auth-form" onSubmit={handleSubmit} noValidate>
           <div>
-            <label className="lbl" htmlFor="reg-name">Full Name</label>
-            <input id="reg-name" className="inp" type="text" placeholder="Sara Johnson" value={form.name} onChange={set('name')} required />
+            <label className="lbl" htmlFor="reg-name">
+              Full Name
+            </label>
+            <input
+              id="reg-name"
+              className="inp"
+              type="text"
+              placeholder="Sara Johnson"
+              value={form.name}
+              onChange={set('name')}
+              required
+            />
           </div>
           <div>
-            <label className="lbl" htmlFor="reg-email">Email</label>
-            <input id="reg-email" className="inp" type="email" placeholder="you@example.com" value={form.email} onChange={set('email')} required />
+            <label className="lbl" htmlFor="reg-email">
+              Email
+            </label>
+            <input
+              id="reg-email"
+              className="inp"
+              type="email"
+              placeholder="you@example.com"
+              value={form.email}
+              onChange={set('email')}
+              required
+            />
           </div>
           <div>
             <label className="lbl">Biological Sex</label>
@@ -68,12 +92,32 @@ export default function Register() {
             <p className="gender-note">Used only to personalise cycle tracking features</p>
           </div>
           <div>
-            <label className="lbl" htmlFor="reg-password">Password</label>
-            <input id="reg-password" className="inp" type="password" placeholder="Min 8 characters" value={form.password} onChange={set('password')} required />
+            <label className="lbl" htmlFor="reg-password">
+              Password
+            </label>
+            <input
+              id="reg-password"
+              className="inp"
+              type="password"
+              placeholder="Min 8 characters"
+              value={form.password}
+              onChange={set('password')}
+              required
+            />
           </div>
           <div>
-            <label className="lbl" htmlFor="reg-confirm">Confirm Password</label>
-            <input id="reg-confirm" className="inp" type="password" placeholder="Re-enter password" value={form.confirm} onChange={set('confirm')} required />
+            <label className="lbl" htmlFor="reg-confirm">
+              Confirm Password
+            </label>
+            <input
+              id="reg-confirm"
+              className="inp"
+              type="password"
+              placeholder="Re-enter password"
+              value={form.confirm}
+              onChange={set('confirm')}
+              required
+            />
           </div>
           <button className="btn-full" type="submit" disabled={loading}>
             {loading ? 'Creating account…' : 'Create Account'}

@@ -13,10 +13,7 @@ function Bar({ val, color, max }) {
 
   return (
     <div className="bar">
-      <div
-        className="bar-f"
-        style={{ width, background: color, transition: 'width 0.4s ease' }}
-      />
+      <div className="bar-f" style={{ width, background: color, transition: 'width 0.4s ease' }} />
     </div>
   );
 }

@@ -4,12 +4,12 @@ import Logo from './Logo';
 import './Navbar.css';
 
 const NAV = [
-  { to: '/dashboard',   icon: '⊞', label: 'Dashboard' },
-  { to: '/log',         icon: '✎', label: 'Daily Log' },
-  { to: '/analytics',   icon: '◎', label: 'Analytics' },
+  { to: '/dashboard', icon: '⊞', label: 'Dashboard' },
+  { to: '/log', icon: '✎', label: 'Daily Log' },
+  { to: '/analytics', icon: '◎', label: 'Analytics' },
   { to: '/medications', icon: '⊕', label: 'Medications' },
-  { to: '/visits',      icon: '♥', label: 'Doctor Visits' },
-  { to: '/report',      icon: '↓', label: 'Health Report' },
+  { to: '/visits', icon: '♥', label: 'Doctor Visits' },
+  { to: '/report', icon: '↓', label: 'Health Report' },
 ];
 
 export default function Navbar() {
@@ -22,7 +22,12 @@ export default function Navbar() {
   }
 
   const initials = user?.name
-    ? user.name.split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase()
+    ? user.name
+        .split(' ')
+        .map((w) => w[0])
+        .join('')
+        .slice(0, 2)
+        .toUpperCase()
     : '??';
 
   return (
@@ -34,12 +39,10 @@ export default function Navbar() {
 
       <div className="nav">
         {NAV.map((n) => (
-          <NavLink
-            key={n.to}
-            to={n.to}
-            className={({ isActive }) => `ni${isActive ? ' on' : ''}`}
-          >
-            <span className="ni-ic" aria-hidden="true">{n.icon}</span>
+          <NavLink key={n.to} to={n.to} className={({ isActive }) => `ni${isActive ? ' on' : ''}`}>
+            <span className="ni-ic" aria-hidden="true">
+              {n.icon}
+            </span>
             {n.label}
           </NavLink>
         ))}
@@ -47,7 +50,9 @@ export default function Navbar() {
 
       {user && (
         <div className="sb-foot">
-          <div className="av" aria-hidden="true">{initials}</div>
+          <div className="av" aria-hidden="true">
+            {initials}
+          </div>
           <div>
             <div className="sb-foot-name">{user.name}</div>
             <button className="btn-logout" onClick={handleLogout} type="button">
@@ -59,4 +64,3 @@ export default function Navbar() {
     </nav>
   );
 }
-

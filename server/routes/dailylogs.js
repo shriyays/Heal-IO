@@ -1,5 +1,10 @@
 const express = require('express');
-const { createLog, getLogs, getLogByDate, deleteLog } = require('../controllers/dailylogs.controller');
+const {
+  createLog,
+  getLogs,
+  getLogByDate,
+  deleteLog,
+} = require('../controllers/dailylogs.controller');
 const { isAuthenticated } = require('../middleware/auth');
 
 const router = express.Router();

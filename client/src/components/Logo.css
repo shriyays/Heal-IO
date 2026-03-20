@@ -1,4 +1,23 @@
-.logo-wrap { display: flex; align-items: center; gap: 10px; }
-.logo-icon { width: 32px; height: 32px; background: #0a6e5c; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.logo-text { font-size: 15px; font-weight: 800; color: #0d2820; letter-spacing: -0.3px; }
-.logo-text span { color: #0a6e5c; }
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background: #0a6e5c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.logo-text {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0d2820;
+  letter-spacing: -0.3px;
+}
+.logo-text span {
+  color: #0a6e5c;
+}

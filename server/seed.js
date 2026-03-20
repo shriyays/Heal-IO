@@ -10,12 +10,42 @@ if (!MONGO_URI) {
 
 // ── Realistic data pools ──────────────────────────────────────────────────────
 
-const FIRST_NAMES = ['Aria', 'Maya', 'Zoe', 'Nadia', 'Priya', 'Sofia', 'Elena', 'Layla', 'Chloe', 'Aisha'];
-const LAST_NAMES  = ['Patel', 'Kim', 'Nguyen', 'Rivera', 'Chen', 'Okafor', 'Sharma', 'Lopez', 'Hassan', 'Park'];
+const FIRST_NAMES = [
+  'Aria',
+  'Maya',
+  'Zoe',
+  'Nadia',
+  'Priya',
+  'Sofia',
+  'Elena',
+  'Layla',
+  'Chloe',
+  'Aisha',
+];
+const LAST_NAMES = [
+  'Patel',
+  'Kim',
+  'Nguyen',
+  'Rivera',
+  'Chen',
+  'Okafor',
+  'Sharma',
+  'Lopez',
+  'Hassan',
+  'Park',
+];
 
 const ALL_SYMPTOMS = [
-  'Fatigue', 'Headache', 'Cramps', 'Bloating', 'Nausea',
-  'Brain fog', 'Joint pain', 'Anxiety', 'Insomnia', 'Skin flare',
+  'Fatigue',
+  'Headache',
+  'Cramps',
+  'Bloating',
+  'Nausea',
+  'Brain fog',
+  'Joint pain',
+  'Anxiety',
+  'Insomnia',
+  'Skin flare',
 ];
 
 const FLOW_OPTIONS = ['None', 'Light', 'Medium', 'Heavy', 'Spotting'];
@@ -32,14 +62,14 @@ const MEAL_POOLS = [
 ];
 
 const MEDICATIONS = [
-  { name: 'Metformin',      dosage: '500mg',  frequency: 'Twice daily',    reminderTime: '08:00' },
-  { name: 'Vitamin D3',     dosage: '2000 IU', frequency: 'Once daily',    reminderTime: '09:00' },
-  { name: 'Spironolactone', dosage: '100mg',  frequency: 'Once daily',     reminderTime: '20:00' },
-  { name: 'Ibuprofen',      dosage: '400mg',  frequency: 'As needed',      reminderTime: '12:00' },
-  { name: 'Levothyroxine',  dosage: '50mcg',  frequency: 'Once daily (AM)', reminderTime: '07:00' },
-  { name: 'Iron Supplement', dosage: '65mg',  frequency: 'Once daily',     reminderTime: '13:00' },
-  { name: 'Magnesium',      dosage: '400mg',  frequency: 'Before bedtime', reminderTime: '21:30' },
-  { name: 'Omega-3',        dosage: '1000mg', frequency: 'Once daily',     reminderTime: '08:30' },
+  { name: 'Metformin', dosage: '500mg', frequency: 'Twice daily', reminderTime: '08:00' },
+  { name: 'Vitamin D3', dosage: '2000 IU', frequency: 'Once daily', reminderTime: '09:00' },
+  { name: 'Spironolactone', dosage: '100mg', frequency: 'Once daily', reminderTime: '20:00' },
+  { name: 'Ibuprofen', dosage: '400mg', frequency: 'As needed', reminderTime: '12:00' },
+  { name: 'Levothyroxine', dosage: '50mcg', frequency: 'Once daily (AM)', reminderTime: '07:00' },
+  { name: 'Iron Supplement', dosage: '65mg', frequency: 'Once daily', reminderTime: '13:00' },
+  { name: 'Magnesium', dosage: '400mg', frequency: 'Before bedtime', reminderTime: '21:30' },
+  { name: 'Omega-3', dosage: '1000mg', frequency: 'Once daily', reminderTime: '08:30' },
 ];
 
 const MED_NOTES = [
@@ -52,13 +82,21 @@ const MED_NOTES = [
 ];
 
 const DOCTOR_NAMES = [
-  'Dr. Rachel Chen',     'Dr. Priya Nair',    'Dr. James Okafor',
-  'Dr. Sofia Martinez',  'Dr. Emily Tanaka',   'Dr. David Kim',
+  'Dr. Rachel Chen',
+  'Dr. Priya Nair',
+  'Dr. James Okafor',
+  'Dr. Sofia Martinez',
+  'Dr. Emily Tanaka',
+  'Dr. David Kim',
 ];
 
 const SPECIALTIES = [
-  'Gynecologist', 'Endocrinologist', 'General Practitioner',
-  'Rheumatologist', 'Dermatologist', 'Psychiatrist',
+  'Gynecologist',
+  'Endocrinologist',
+  'General Practitioner',
+  'Rheumatologist',
+  'Dermatologist',
+  'Psychiatrist',
 ];
 
 const VISIT_NOTES = [
@@ -116,18 +154,18 @@ async function seed() {
     const db = client.db();
 
     // Collections
-    const usersCol       = db.collection('users');
-    const logsCol        = db.collection('daily_logs');
-    const medsCol        = db.collection('medications');
-    const adherenceCol   = db.collection('adherence_logs');
-    const visitsCol      = db.collection('doctor_visits');
+    const usersCol = db.collection('users');
+    const logsCol = db.collection('daily_logs');
+    const medsCol = db.collection('medications');
+    const adherenceCol = db.collection('adherence_logs');
+    const visitsCol = db.collection('doctor_visits');
 
     // ── Clear existing seed data ──────────────────────────────────────────────
     console.log('Clearing previous seed data...');
 
     // Find existing seed users (tagged with isSeed: true) or users with seed emails
     const existingSeedUsers = await usersCol.find({ isSeed: true }).toArray();
-    const seedUserIds = existingSeedUsers.map(u => u._id);
+    const seedUserIds = existingSeedUsers.map((u) => u._id);
 
     if (seedUserIds.length > 0) {
       await logsCol.deleteMany({ userId: { $in: seedUserIds } });
@@ -145,7 +183,7 @@ async function seed() {
     const userData = [];
     for (let i = 0; i < 5; i++) {
       const firstName = FIRST_NAMES[i];
-      const lastName  = LAST_NAMES[i];
+      const lastName = LAST_NAMES[i];
       userData.push({
         _id: new ObjectId(),
         firstName,
@@ -162,10 +200,10 @@ async function seed() {
     console.log(`Inserted ${usersResult.insertedCount} users`);
 
     // ── Per-user data generation ──────────────────────────────────────────────
-    const allLogs        = [];
-    const allMeds        = [];
-    const allAdherence   = [];
-    const allVisits      = [];
+    const allLogs = [];
+    const allMeds = [];
+    const allAdherence = [];
+    const allVisits = [];
 
     for (const user of userData) {
       const userId = user._id;
@@ -173,26 +211,27 @@ async function seed() {
       // ── 210 daily logs ──────────────────────────────────────────────────────
       for (let d = 0; d < 210; d++) {
         const symptomCount = rand(0, 4);
-        const symptoms     = pickRandom(ALL_SYMPTOMS, symptomCount);
-        const mealSet      = MEAL_POOLS[d % MEAL_POOLS.length];
-        const flowIdx      = rand(0, FLOW_OPTIONS.length - 1);
+        const symptoms = pickRandom(ALL_SYMPTOMS, symptomCount);
+        const mealSet = MEAL_POOLS[d % MEAL_POOLS.length];
+        const flowIdx = rand(0, FLOW_OPTIONS.length - 1);
 
         allLogs.push({
           userId,
-          date:      dateStr(d),
-          mood:      rand(1, 10),
-          energy:    rand(1, 10),
-          sleep:     rand(4, 12),
-          pain:      rand(1, 10),
-          cramp:     rand(1, 10),
+          date: dateStr(d),
+          mood: rand(1, 10),
+          energy: rand(1, 10),
+          sleep: rand(4, 12),
+          pain: rand(1, 10),
+          cramp: rand(1, 10),
           symptoms,
-          meals:     mealSet,
-          flow:      FLOW_OPTIONS[flowIdx],
-          notes:     d % 7 === 0
-            ? 'Feeling a bit off today. Took it easy and stayed hydrated.'
-            : d % 5 === 0
-              ? 'Good energy levels today. Completed workout and meal prepped.'
-              : '',
+          meals: mealSet,
+          flow: FLOW_OPTIONS[flowIdx],
+          notes:
+            d % 7 === 0
+              ? 'Feeling a bit off today. Took it easy and stayed hydrated.'
+              : d % 5 === 0
+                ? 'Good energy levels today. Completed workout and meal prepped.'
+                : '',
           createdAt: dateObj(d),
         });
       }
@@ -202,13 +241,13 @@ async function seed() {
       const userMedDocs = chosenMeds.map((med, idx) => ({
         _id: new ObjectId(),
         userId,
-        name:         med.name,
-        dosage:       med.dosage,
-        frequency:    med.frequency,
+        name: med.name,
+        dosage: med.dosage,
+        frequency: med.frequency,
         reminderTime: med.reminderTime,
-        notes:        MED_NOTES[idx % MED_NOTES.length],
-        active:       idx < 4, // 4 active, 1 inactive
-        createdAt:    dateObj(200 - idx * 10),
+        notes: MED_NOTES[idx % MED_NOTES.length],
+        active: idx < 4, // 4 active, 1 inactive
+        createdAt: dateObj(200 - idx * 10),
       }));
       allMeds.push(...userMedDocs);
 
@@ -217,9 +256,9 @@ async function seed() {
         for (let d = 0; d < 42; d++) {
           allAdherence.push({
             userId,
-            medId:     med._id,
-            date:      dateStr(d),
-            taken:     Math.random() > 0.15, // ~85% adherence rate
+            medId: med._id,
+            date: dateStr(d),
+            taken: Math.random() > 0.15, // ~85% adherence rate
             createdAt: dateObj(d),
           });
         }
@@ -227,30 +266,30 @@ async function seed() {
 
       // ── 6 doctor visits ─────────────────────────────────────────────────────
       for (let v = 0; v < 6; v++) {
-        const visitDaysAgo  = 30 + v * 28;
-        const followUpDays  = visitDaysAgo - 28;
-        const doctorIdx     = v % DOCTOR_NAMES.length;
-        const specialtyIdx  = v % SPECIALTIES.length;
+        const visitDaysAgo = 30 + v * 28;
+        const followUpDays = visitDaysAgo - 28;
+        const doctorIdx = v % DOCTOR_NAMES.length;
+        const specialtyIdx = v % SPECIALTIES.length;
         const prescriptions = PRESCRIPTIONS_POOL[v % PRESCRIPTIONS_POOL.length];
 
         allVisits.push({
           userId,
-          doctorName:  DOCTOR_NAMES[doctorIdx],
-          specialty:   SPECIALTIES[specialtyIdx],
-          visitDate:   dateStr(visitDaysAgo),
-          notes:       VISIT_NOTES[v % VISIT_NOTES.length],
+          doctorName: DOCTOR_NAMES[doctorIdx],
+          specialty: SPECIALTIES[specialtyIdx],
+          visitDate: dateStr(visitDaysAgo),
+          notes: VISIT_NOTES[v % VISIT_NOTES.length],
           prescriptions,
           followUpDate: followUpDays > 0 ? dateStr(followUpDays) : null,
-          createdAt:   dateObj(visitDaysAgo),
+          createdAt: dateObj(visitDaysAgo),
         });
       }
     }
 
     // ── Bulk insert all records ───────────────────────────────────────────────
-    const logsResult      = await logsCol.insertMany(allLogs);
-    const medsResult      = await medsCol.insertMany(allMeds);
+    const logsResult = await logsCol.insertMany(allLogs);
+    const medsResult = await medsCol.insertMany(allMeds);
     const adherenceResult = await adherenceCol.insertMany(allAdherence);
-    const visitsResult    = await visitsCol.insertMany(allVisits);
+    const visitsResult = await visitsCol.insertMany(allVisits);
 
     // ── Summary ──────────────────────────────────────────────────────────────
     const totalRecords =
@@ -262,17 +301,24 @@ async function seed() {
 
     console.log('\n=== Seed Complete ===');
     console.log(`  Users:          ${usersResult.insertedCount}`);
-    console.log(`  Daily logs:     ${logsResult.insertedCount}  (${userData.length} users × 210 days)`);
-    console.log(`  Medications:    ${medsResult.insertedCount}  (${userData.length} users × 5 meds)`);
-    console.log(`  Adherence logs: ${adherenceResult.insertedCount}  (${userData.length} users × 5 meds × 42 days)`);
-    console.log(`  Doctor visits:  ${visitsResult.insertedCount}  (${userData.length} users × 6 visits)`);
+    console.log(
+      `  Daily logs:     ${logsResult.insertedCount}  (${userData.length} users × 210 days)`
+    );
+    console.log(
+      `  Medications:    ${medsResult.insertedCount}  (${userData.length} users × 5 meds)`
+    );
+    console.log(
+      `  Adherence logs: ${adherenceResult.insertedCount}  (${userData.length} users × 5 meds × 42 days)`
+    );
+    console.log(
+      `  Doctor visits:  ${visitsResult.insertedCount}  (${userData.length} users × 6 visits)`
+    );
     console.log(`  ─────────────────────────────`);
     console.log(`  TOTAL RECORDS:  ${totalRecords}`);
     console.log('\nSeed users created:');
-    userData.forEach(u => {
+    userData.forEach((u) => {
       console.log(`  ${u.email}  /  password: HealIO2024!`);
     });
-
   } catch (err) {
     console.error('Seed error:', err);
     process.exit(1);

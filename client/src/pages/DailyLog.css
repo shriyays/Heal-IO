@@ -1,4 +1,35 @@
-.sym { font-size: 12px; padding: 5px 13px; border: 1px solid rgba(10,110,92,0.18); background: rgba(255,255,255,0.7); color: #4a7a6a; cursor: pointer; transition: all 0.15s; user-select: none; font-family: inherit; }
-.sym.on { background: rgba(10,110,92,0.08); border-color: rgba(10,110,92,0.3); color: #0a6e5c; font-weight: 600; }
-.cyc { padding: 8px; text-align: center; font-size: 11.5px; border: 1px solid rgba(10,110,92,0.18); background: rgba(255,255,255,0.7); color: #4a7a6a; cursor: pointer; transition: all 0.15s; font-family: inherit; width: 100%; }
-.cyc.on { background: rgba(239,68,68,0.07); border-color: rgba(239,68,68,0.3); color: #b91c1c; font-weight: 600; }
+.sym {
+  font-size: 12px;
+  padding: 5px 13px;
+  border: 1px solid rgba(10, 110, 92, 0.18);
+  background: rgba(255, 255, 255, 0.7);
+  color: #4a7a6a;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+  font-family: inherit;
+}
+.sym.on {
+  background: rgba(10, 110, 92, 0.08);
+  border-color: rgba(10, 110, 92, 0.3);
+  color: #0a6e5c;
+  font-weight: 600;
+}
+.cyc {
+  padding: 8px;
+  text-align: center;
+  font-size: 11.5px;
+  border: 1px solid rgba(10, 110, 92, 0.18);
+  background: rgba(255, 255, 255, 0.7);
+  color: #4a7a6a;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+  width: 100%;
+}
+.cyc.on {
+  background: rgba(239, 68, 68, 0.07);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #b91c1c;
+  font-weight: 600;
+}

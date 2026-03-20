@@ -6,18 +6,35 @@ import './DailyLog.css';
 const d0 = new Date();
 const today = `${d0.getFullYear()}-${String(d0.getMonth() + 1).padStart(2, '0')}-${String(d0.getDate()).padStart(2, '0')}`;
 const todayLabel = new Date().toLocaleDateString('en-US', {
-  weekday: 'long', month: 'long', day: 'numeric',
+  weekday: 'long',
+  month: 'long',
+  day: 'numeric',
 });
 
 const SYMPTOMS = [
-  'Fatigue', 'Headache', 'Cramps', 'Bloating', 'Nausea',
-  'Brain fog', 'Joint pain', 'Anxiety', 'Insomnia', 'Skin flare',
+  'Fatigue',
+  'Headache',
+  'Cramps',
+  'Bloating',
+  'Nausea',
+  'Brain fog',
+  'Joint pain',
+  'Anxiety',
+  'Insomnia',
+  'Skin flare',
 ];
 const FLOW_OPTIONS = ['None', 'Light', 'Medium', 'Heavy', 'Spotting', 'N/A'];
 
 const EMPTY = {
-  mood: 5, energy: 5, sleep: 7, pain: 3, cramp: 3,
-  symptoms: [], meals: [], flow: 'None', notes: '',
+  mood: 5,
+  energy: 5,
+  sleep: 7,
+  pain: 3,
+  cramp: 3,
+  symptoms: [],
+  meals: [],
+  flow: 'None',
+  notes: '',
 };
 
 export default function DailyLog() {
@@ -39,14 +56,14 @@ export default function DailyLog() {
       .then((data) => {
         if (data) {
           setForm({
-            mood:     data.mood     ?? EMPTY.mood,
-            energy:   data.energy   ?? EMPTY.energy,
-            sleep:    data.sleep    ?? EMPTY.sleep,
-            pain:     data.pain     ?? EMPTY.pain,
-            cramp:    data.cramp    ?? EMPTY.cramp,
+            mood: data.mood ?? EMPTY.mood,
+            energy: data.energy ?? EMPTY.energy,
+            sleep: data.sleep ?? EMPTY.sleep,
+            pain: data.pain ?? EMPTY.pain,
+            cramp: data.cramp ?? EMPTY.cramp,
             symptoms: data.symptoms ?? [],
-            meals: Array.isArray(data.meals) ? data.meals : (data.meals ? [data.meals] : []),
-            flow:  data.flow  ?? 'None',
+            meals: Array.isArray(data.meals) ? data.meals : data.meals ? [data.meals] : [],
+            flow: data.flow ?? 'None',
             notes: data.notes ?? '',
           });
         } else {
@@ -73,9 +90,7 @@ export default function DailyLog() {
   function toggleSym(s) {
     setForm((f) => ({
       ...f,
-      symptoms: f.symptoms.includes(s)
-        ? f.symptoms.filter((x) => x !== s)
-        : [...f.symptoms, s],
+      symptoms: f.symptoms.includes(s) ? f.symptoms.filter((x) => x !== s) : [...f.symptoms, s],
     }));
   }
 
@@ -102,8 +117,17 @@ export default function DailyLog() {
   return (
     <div>
       <div className="pg-title">Daily Log</div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 26 }}>
-        <div className="pg-sub" style={{ margin: 0 }}>{date === today ? todayLabel : date}</div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 26,
+        }}
+      >
+        <div className="pg-sub" style={{ margin: 0 }}>
+          {date === today ? todayLabel : date}
+        </div>
         <input
           type="date"
           className="inp"
@@ -114,18 +138,51 @@ export default function DailyLog() {
         />
       </div>
 
-      {saved && <div className="toast" role="status">Log saved successfully.</div>}
-      {error && <div className="toast error" role="alert">{error}</div>}
+      {saved && (
+        <div className="toast" role="status">
+          Log saved successfully.
+        </div>
+      )}
+      {error && (
+        <div className="toast error" role="alert">
+          {error}
+        </div>
+      )}
 
       <div className="g2e">
         {/* ── Left column ── */}
         <div>
           <div className="card" style={{ marginBottom: 12 }}>
             <div className="sec-lbl">How are you feeling?</div>
-            <SliderField label="Mood"        name="mood"   value={form.mood}   onChange={set} color="#0a6e5c" />
-            <SliderField label="Energy"      name="energy" value={form.energy} onChange={set} color="#059669" />
-            <SliderField label="Pain level"  name="pain"   value={form.pain}   onChange={set} color="#dc2626" />
-            <SliderField label="Sleep hours" name="sleep"  value={form.sleep}  onChange={set} max={12} color="#7c3aed" />
+            <SliderField
+              label="Mood"
+              name="mood"
+              value={form.mood}
+              onChange={set}
+              color="#0a6e5c"
+            />
+            <SliderField
+              label="Energy"
+              name="energy"
+              value={form.energy}
+              onChange={set}
+              color="#059669"
+            />
+            <SliderField
+              label="Pain level"
+              name="pain"
+              value={form.pain}
+              onChange={set}
+              color="#dc2626"
+            />
+            <SliderField
+              label="Sleep hours"
+              name="sleep"
+              value={form.sleep}
+              onChange={set}
+              max={12}
+              color="#7c3aed"
+            />
           </div>
 
           <div className="card" style={{ marginBottom: 12 }}>
@@ -139,18 +196,33 @@ export default function DailyLog() {
                 onChange={(e) => setMealInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && addMeal()}
               />
-              <button className="btn" type="button" onClick={addMeal}>Add</button>
+              <button className="btn" type="button" onClick={addMeal}>
+                Add
+              </button>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
               {form.meals.map((m, i) => (
-                <span key={i} className="tag" style={{ background: 'rgba(209,250,229,0.8)', color: '#166534', gap: 5 }}>
+                <span
+                  key={i}
+                  className="tag"
+                  style={{ background: 'rgba(209,250,229,0.8)', color: '#166534', gap: 5 }}
+                >
                   {m}
                   <button
                     type="button"
-                    style={{ background: 'none', border: 'none', cursor: 'pointer', opacity: 0.6, padding: '0 0 0 4px', color: 'inherit' }}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      opacity: 0.6,
+                      padding: '0 0 0 4px',
+                      color: 'inherit',
+                    }}
                     onClick={() => removeMeal(i)}
                     aria-label={`Remove ${m}`}
-                  >×</button>
+                  >
+                    ×
+                  </button>
                 </span>
               ))}
             </div>
@@ -189,8 +261,17 @@ export default function DailyLog() {
           {isFemale && (
             <div className="card" style={{ marginBottom: 12 }}>
               <div className="sec-lbl">Cycle tracking</div>
-              <div className="lbl" style={{ marginBottom: 8 }}>Flow today</div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 6, marginBottom: 14 }}>
+              <div className="lbl" style={{ marginBottom: 8 }}>
+                Flow today
+              </div>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(3,1fr)',
+                  gap: 6,
+                  marginBottom: 14,
+                }}
+              >
                 {FLOW_OPTIONS.map((f) => (
                   <button
                     key={f}
@@ -202,7 +283,13 @@ export default function DailyLog() {
                   </button>
                 ))}
               </div>
-              <SliderField label="Cramping" name="cramp" value={form.cramp} onChange={set} color="#e11d48" />
+              <SliderField
+                label="Cramping"
+                name="cramp"
+                value={form.cramp}
+                onChange={set}
+                color="#e11d48"
+              />
             </div>
           )}
 

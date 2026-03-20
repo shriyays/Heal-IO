@@ -5,7 +5,11 @@ async function getMedications(req, res) {
   try {
     const db = getDB();
     const userId = new ObjectId(req.user._id);
-    const meds = await db.collection('medications').find({ userId }).sort({ createdAt: -1 }).toArray();
+    const meds = await db
+      .collection('medications')
+      .find({ userId })
+      .sort({ createdAt: -1 })
+      .toArray();
     res.json(meds);
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
@@ -14,7 +18,8 @@ async function getMedications(req, res) {
 
 async function addMedication(req, res) {
   const { name, dosage, frequency, reminderTime, notes } = req.body;
-  if (!name || !dosage || !frequency) return res.status(400).json({ error: 'name, dosage, frequency required' });
+  if (!name || !dosage || !frequency)
+    return res.status(400).json({ error: 'name, dosage, frequency required' });
 
   try {
     const db = getDB();
@@ -44,11 +49,13 @@ async function updateMedication(req, res) {
     delete updates._id;
     delete updates.userId;
 
-    const result = await db.collection('medications').findOneAndUpdate(
-      { _id: new ObjectId(id), userId },
-      { $set: { ...updates, updatedAt: new Date() } },
-      { returnDocument: 'after' }
-    );
+    const result = await db
+      .collection('medications')
+      .findOneAndUpdate(
+        { _id: new ObjectId(id), userId },
+        { $set: { ...updates, updatedAt: new Date() } },
+        { returnDocument: 'after' }
+      );
     if (!result) return res.status(404).json({ error: 'Not found' });
     res.json(result);
   } catch (err) {
@@ -64,11 +71,13 @@ async function toggleActive(req, res) {
     const med = await db.collection('medications').findOne({ _id: new ObjectId(id), userId });
     if (!med) return res.status(404).json({ error: 'Not found' });
 
-    const updated = await db.collection('medications').findOneAndUpdate(
-      { _id: new ObjectId(id), userId },
-      { $set: { active: !med.active, updatedAt: new Date() } },
-      { returnDocument: 'after' }
-    );
+    const updated = await db
+      .collection('medications')
+      .findOneAndUpdate(
+        { _id: new ObjectId(id), userId },
+        { $set: { active: !med.active, updatedAt: new Date() } },
+        { returnDocument: 'after' }
+      );
     res.json(updated);
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
@@ -122,4 +131,11 @@ async function getAdherence(req, res) {
   }
 }
 
-module.exports = { getMedications, addMedication, updateMedication, toggleActive, logAdherence, getAdherence };
+module.exports = {
+  getMedications,
+  addMedication,
+  updateMedication,
+  toggleActive,
+  logAdherence,
+  getAdherence,
+};
