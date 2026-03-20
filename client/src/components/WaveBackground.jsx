@@ -2,16 +2,16 @@ import { useEffect, useRef } from 'react';
 import './WaveBackground.css';
 
 const WAVE_DEFS = [
-  { y: 0.20, speed: 0.000007, amp: 55, freq: 0.004, color: 'rgba(104,185,157,', lw: 22 },
-  { y: 0.50, speed: 0.000005, amp: 80, freq: 0.003, color: 'rgba(167,220,195,', lw: 20 },
+  { y: 0.2, speed: 0.000007, amp: 55, freq: 0.004, color: 'rgba(104,185,157,', lw: 22 },
+  { y: 0.5, speed: 0.000005, amp: 80, freq: 0.003, color: 'rgba(167,220,195,', lw: 20 },
   { y: 0.78, speed: 0.000009, amp: 60, freq: 0.005, color: 'rgba(134,200,170,', lw: 22 },
 ];
 
 const LAYERS = [
   { lwMul: 2.8, alpha: 0.06 },
-  { lwMul: 1.8, alpha: 0.10 },
+  { lwMul: 1.8, alpha: 0.1 },
   { lwMul: 1.2, alpha: 0.16 },
-  { lwMul: 1.0, alpha: 1.00 },
+  { lwMul: 1.0, alpha: 1.0 },
 ];
 
 export default function WaveBackground() {
@@ -72,4 +72,3 @@ export default function WaveBackground() {
 
   return <canvas ref={ref} className="wave-canvas" aria-hidden="true" />;
 }
-

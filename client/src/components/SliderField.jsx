@@ -6,7 +6,9 @@ function SliderField({ label, name, value, onChange, max, color }) {
     <div className="sl-wrap">
       <div className="sl-row">
         <span className="sl-name">{label}</span>
-        <span className="sl-val" style={{ color }}>{value}</span>
+        <span className="sl-val" style={{ color }}>
+          {value}
+        </span>
       </div>
       <input
         type="range"

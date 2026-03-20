@@ -4,9 +4,8 @@ const bcrypt = require('bcrypt');
 const { getDB } = require('./db');
 const { ObjectId } = require('mongodb');
 
-passport.use(new LocalStrategy(
-  { usernameField: 'email' },
-  async (email, password, done) => {
+passport.use(
+  new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
     try {
       const db = getDB();
       const user = await db.collection('users').findOne({ email });
@@ -19,8 +18,8 @@ passport.use(new LocalStrategy(
     } catch (err) {
       return done(err);
     }
-  }
-));
+  })
+);
 
 passport.serializeUser((user, done) => {
   done(null, user._id.toString());

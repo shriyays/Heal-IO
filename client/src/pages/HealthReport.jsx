@@ -23,7 +23,11 @@ function avgDisplay(arr, key, suffix = '') {
 
 function symFreq(logs) {
   const map = {};
-  logs.forEach((l) => (l.symptoms || []).forEach((s) => { map[s] = (map[s] || 0) + 1; }));
+  logs.forEach((l) =>
+    (l.symptoms || []).forEach((s) => {
+      map[s] = (map[s] || 0) + 1;
+    })
+  );
   return Object.entries(map).sort((a, b) => b[1] - a[1]);
 }
 
@@ -35,8 +39,9 @@ function weeklyBuckets(logs) {
   let weekStart = sorted[0].date;
   sorted.forEach((l) => {
     const diff = (new Date(l.date) - new Date(weekStart)) / 86400000;
-    if (diff < 7) { wk.push(l); }
-    else {
+    if (diff < 7) {
+      wk.push(l);
+    } else {
       buckets.push({ label: weekStart.slice(5), logs: wk });
       wk = [l];
       weekStart = l.date;
@@ -80,7 +85,9 @@ export default function HealthReport() {
       const allVisits = await visitsRes.json();
       const adherence = adherenceRes.ok ? await adherenceRes.json() : [];
       const visits = Array.isArray(allVisits)
-        ? allVisits.filter((v) => v.visitDate >= from && v.visitDate <= to).sort((a, b) => b.visitDate.localeCompare(a.visitDate))
+        ? allVisits
+            .filter((v) => v.visitDate >= from && v.visitDate <= to)
+            .sort((a, b) => b.visitDate.localeCompare(a.visitDate))
         : [];
       setReport({
         logs: Array.isArray(logs) ? logs.sort((a, b) => a.date.localeCompare(b.date)) : [],
@@ -100,7 +107,9 @@ export default function HealthReport() {
         <div>
           <div className="pg-title">Health Report</div>
           <div className="pg-sub">
-            {report ? `${from}  →  ${to}  ·  ${report.logs.length} entries` : 'Generate a doctor-ready summary'}
+            {report
+              ? `${from}  →  ${to}  ·  ${report.logs.length} entries`
+              : 'Generate a doctor-ready summary'}
           </div>
         </div>
         {report && (
@@ -116,12 +125,33 @@ export default function HealthReport() {
           <div className="sec-lbl">Select date range</div>
           <div style={{ display: 'flex', gap: 16, alignItems: 'flex-end', flexWrap: 'wrap' }}>
             <div>
-              <label className="lbl" htmlFor="rpt-from">From</label>
-              <input id="rpt-from" type="date" className="inp" style={{ margin: 0, width: 'auto' }} value={from} max={to} onChange={(e) => setFrom(e.target.value)} />
+              <label className="lbl" htmlFor="rpt-from">
+                From
+              </label>
+              <input
+                id="rpt-from"
+                type="date"
+                className="inp"
+                style={{ margin: 0, width: 'auto' }}
+                value={from}
+                max={to}
+                onChange={(e) => setFrom(e.target.value)}
+              />
             </div>
             <div>
-              <label className="lbl" htmlFor="rpt-to">To</label>
-              <input id="rpt-to" type="date" className="inp" style={{ margin: 0, width: 'auto' }} value={to} min={from} max={today} onChange={(e) => setTo(e.target.value)} />
+              <label className="lbl" htmlFor="rpt-to">
+                To
+              </label>
+              <input
+                id="rpt-to"
+                type="date"
+                className="inp"
+                style={{ margin: 0, width: 'auto' }}
+                value={to}
+                min={from}
+                max={today}
+                onChange={(e) => setTo(e.target.value)}
+              />
             </div>
             <button className="btn" type="button" onClick={generate} disabled={loading}>
               {loading ? 'Generating…' : 'Generate Report'}
@@ -133,13 +163,16 @@ export default function HealthReport() {
       {/* ════════════════ REPORT CONTENT ════════════════ */}
       {report && (
         <div className="rpt-body">
-
           {/* ── Page 1: Cover header ── */}
           <div className="rpt-head">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div
+              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}
+            >
               <div>
                 <div className="rpt-title">Patient Health Summary</div>
-                <div className="rpt-subtitle">Reporting period: {from} — {to}</div>
+                <div className="rpt-subtitle">
+                  Reporting period: {from} — {to}
+                </div>
                 <div className="rpt-subtitle">{report.logs.length} daily entries recorded</div>
               </div>
               <Logo />
@@ -182,7 +215,12 @@ export default function HealthReport() {
                       <td>{avgDisplay(wk.logs, 'mood')}</td>
                       <td>{avgDisplay(wk.logs, 'energy')}</td>
                       <td>{avgDisplay(wk.logs, 'sleep', 'h')}</td>
-                      <td style={{ color: painColor(parseFloat(avg(wk.logs, 'pain'))), fontWeight: 700 }}>
+                      <td
+                        style={{
+                          color: painColor(parseFloat(avg(wk.logs, 'pain'))),
+                          fontWeight: 700,
+                        }}
+                      >
                         {avgDisplay(wk.logs, 'pain')}
                       </td>
                     </tr>
@@ -201,10 +239,15 @@ export default function HealthReport() {
                   <div key={sym} className="rpt-sym-row">
                     <div className="rpt-sym-name">{sym}</div>
                     <div style={{ flex: 1 }}>
-                      <Bar val={count} color="#dc2626" max={Math.max(...symFreq(report.logs).map(([, c]) => c), 1)} />
+                      <Bar
+                        val={count}
+                        color="#dc2626"
+                        max={Math.max(...symFreq(report.logs).map(([, c]) => c), 1)}
+                      />
                     </div>
                     <div className="rpt-sym-count">
-                      {count} day{count !== 1 ? 's' : ''} ({Math.round((count / report.logs.length) * 100)}%)
+                      {count} day{count !== 1 ? 's' : ''} (
+                      {Math.round((count / report.logs.length) * 100)}%)
                     </div>
                   </div>
                 ))}
@@ -224,12 +267,12 @@ export default function HealthReport() {
               <div className="rpt-section">
                 <div className="rpt-sec-title">Key Clinical Insight — Sleep & Pain Correlation</div>
                 <div className="rpt-insight">
-                  On days with <strong>under 6h sleep</strong> ({poor.length} days), average pain was{' '}
-                  <strong style={{ color: '#dc2626' }}>{poorPain}/10</strong>. On nights with{' '}
+                  On days with <strong>under 6h sleep</strong> ({poor.length} days), average pain
+                  was <strong style={{ color: '#dc2626' }}>{poorPain}/10</strong>. On nights with{' '}
                   <strong>7h or more sleep</strong> ({good.length} days), pain dropped to{' '}
                   <strong style={{ color: '#059669' }}>{goodPain}/10</strong>
-                  {reduction > 0 ? ` — a ${reduction}% reduction` : ''}.
-                  Sleep quality is the strongest correlate with symptom severity in this patient&apos;s data.
+                  {reduction > 0 ? ` — a ${reduction}% reduction` : ''}. Sleep quality is the
+                  strongest correlate with symptom severity in this patient&apos;s data.
                 </div>
               </div>
             );
@@ -250,24 +293,32 @@ export default function HealthReport() {
                   </tr>
                 </thead>
                 <tbody>
-                  {report.meds.filter((m) => m.active).map((m) => (
-                    <tr key={m._id}>
-                      <td style={{ fontWeight: 600 }}>{m.name}</td>
-                      <td>{m.dosage || '—'}</td>
-                      <td>{m.frequency || '—'}</td>
-                      <td>{m.reminderTime || '—'}</td>
-                      <td><span className="rpt-badge rpt-badge-green">Active</span></td>
-                    </tr>
-                  ))}
-                  {report.meds.filter((m) => !m.active).map((m) => (
-                    <tr key={m._id} style={{ opacity: 0.55 }}>
-                      <td style={{ fontWeight: 600 }}>{m.name}</td>
-                      <td>{m.dosage || '—'}</td>
-                      <td>{m.frequency || '—'}</td>
-                      <td>{m.reminderTime || '—'}</td>
-                      <td><span className="rpt-badge rpt-badge-gray">Inactive</span></td>
-                    </tr>
-                  ))}
+                  {report.meds
+                    .filter((m) => m.active)
+                    .map((m) => (
+                      <tr key={m._id}>
+                        <td style={{ fontWeight: 600 }}>{m.name}</td>
+                        <td>{m.dosage || '—'}</td>
+                        <td>{m.frequency || '—'}</td>
+                        <td>{m.reminderTime || '—'}</td>
+                        <td>
+                          <span className="rpt-badge rpt-badge-green">Active</span>
+                        </td>
+                      </tr>
+                    ))}
+                  {report.meds
+                    .filter((m) => !m.active)
+                    .map((m) => (
+                      <tr key={m._id} style={{ opacity: 0.55 }}>
+                        <td style={{ fontWeight: 600 }}>{m.name}</td>
+                        <td>{m.dosage || '—'}</td>
+                        <td>{m.frequency || '—'}</td>
+                        <td>{m.reminderTime || '—'}</td>
+                        <td>
+                          <span className="rpt-badge rpt-badge-gray">Inactive</span>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
@@ -287,24 +338,36 @@ export default function HealthReport() {
                   </tr>
                 </thead>
                 <tbody>
-                  {report.meds.map((m) => {
-                    const entries = report.adherence.filter((a) => String(a.medId) === String(m._id));
-                    if (!entries.length) return null;
-                    const taken = entries.filter((a) => a.taken).length;
-                    const rate = Math.round((taken / entries.length) * 100);
-                    return (
-                      <tr key={m._id}>
-                        <td style={{ fontWeight: 600 }}>{m.name} <span style={{ color: '#6a9a8a', fontWeight: 400 }}>{m.dosage}</span></td>
-                        <td>{entries.length}</td>
-                        <td>{taken}</td>
-                        <td>
-                          <span style={{ fontWeight: 700, color: rate >= 80 ? '#059669' : rate >= 50 ? '#f59e0b' : '#dc2626' }}>
-                            {rate}%
-                          </span>
-                        </td>
-                      </tr>
-                    );
-                  }).filter(Boolean)}
+                  {report.meds
+                    .map((m) => {
+                      const entries = report.adherence.filter(
+                        (a) => String(a.medId) === String(m._id)
+                      );
+                      if (!entries.length) return null;
+                      const taken = entries.filter((a) => a.taken).length;
+                      const rate = Math.round((taken / entries.length) * 100);
+                      return (
+                        <tr key={m._id}>
+                          <td style={{ fontWeight: 600 }}>
+                            {m.name}{' '}
+                            <span style={{ color: '#6a9a8a', fontWeight: 400 }}>{m.dosage}</span>
+                          </td>
+                          <td>{entries.length}</td>
+                          <td>{taken}</td>
+                          <td>
+                            <span
+                              style={{
+                                fontWeight: 700,
+                                color: rate >= 80 ? '#059669' : rate >= 50 ? '#f59e0b' : '#dc2626',
+                              }}
+                            >
+                              {rate}%
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })
+                    .filter(Boolean)}
                 </tbody>
               </table>
             </div>
@@ -325,7 +388,8 @@ export default function HealthReport() {
                   </div>
                   {v.notes && (
                     <div className="rpt-visit-field">
-                      <span className="rpt-visit-lbl">Notes: </span>{v.notes}
+                      <span className="rpt-visit-lbl">Notes: </span>
+                      {v.notes}
                     </div>
                   )}
                   {Array.isArray(v.prescriptions) && v.prescriptions.length > 0 && (
@@ -336,7 +400,8 @@ export default function HealthReport() {
                   )}
                   {v.followUpDate && (
                     <div className="rpt-visit-field">
-                      <span className="rpt-visit-lbl">Follow-up: </span>{v.followUpDate}
+                      <span className="rpt-visit-lbl">Follow-up: </span>
+                      {v.followUpDate}
                     </div>
                   )}
                 </div>
@@ -371,7 +436,9 @@ export default function HealthReport() {
                       <td style={{ color: painColor(l.pain), fontWeight: 700 }}>{l.pain ?? '—'}</td>
                       <td style={{ fontSize: 10 }}>{(l.symptoms || []).join(', ') || '—'}</td>
                       <td style={{ fontSize: 10, maxWidth: 90 }}>{l.meals || '—'}</td>
-                      <td style={{ fontSize: 10, maxWidth: 120, color: '#6a9a8a' }}>{l.notes || '—'}</td>
+                      <td style={{ fontSize: 10, maxWidth: 120, color: '#6a9a8a' }}>
+                        {l.notes || '—'}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -381,12 +448,20 @@ export default function HealthReport() {
 
           {/* ── Footer ── */}
           <div className="rpt-footer">
-            Generated by Heal I/O · {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} · This report is for informational purposes only.
+            Generated by Heal I/O ·{' '}
+            {new Date().toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}{' '}
+            · This report is for informational purposes only.
           </div>
 
           {/* Back button (screen only) */}
           <div className="rpt-back-btn">
-            <button className="btn-o" type="button" onClick={() => setReport(null)}>← New report</button>
+            <button className="btn-o" type="button" onClick={() => setReport(null)}>
+              ← New report
+            </button>
           </div>
         </div>
       )}

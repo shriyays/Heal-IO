@@ -1,5 +1,10 @@
 const express = require('express');
-const { getVisits, addVisit, updateVisit, deleteVisit } = require('../controllers/doctorvisits.controller');
+const {
+  getVisits,
+  addVisit,
+  updateVisit,
+  deleteVisit,
+} = require('../controllers/doctorvisits.controller');
 const { isAuthenticated } = require('../middleware/auth');
 
 const router = express.Router();

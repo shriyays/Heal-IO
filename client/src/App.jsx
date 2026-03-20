@@ -22,7 +22,9 @@ function AppLayout() {
   return (
     <div className="app">
       <WaveBackground />
-      <div style={{ position: 'relative', zIndex: 1, display: 'flex', width: '100%', height: '100%' }}>
+      <div
+        style={{ position: 'relative', zIndex: 1, display: 'flex', width: '100%', height: '100%' }}
+      >
         <Navbar />
         <div className="main">
           <Outlet />
@@ -36,18 +38,18 @@ export default function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="/login"    element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
         <Route element={<ProtectedRoute />}>
           <Route element={<AppLayout />}>
-            <Route path="/"            element={<Navigate to="/dashboard" replace />} />
-            <Route path="/dashboard"   element={<Dashboard />} />
-            <Route path="/log"         element={<DailyLog />} />
-            <Route path="/analytics"   element={<Analytics />} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/log" element={<DailyLog />} />
+            <Route path="/analytics" element={<Analytics />} />
             <Route path="/medications" element={<Medications />} />
-            <Route path="/visits"      element={<DoctorVisits />} />
-            <Route path="/report"      element={<HealthReport />} />
+            <Route path="/visits" element={<DoctorVisits />} />
+            <Route path="/report" element={<HealthReport />} />
           </Route>
         </Route>
       </Routes>
