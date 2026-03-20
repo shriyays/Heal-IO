@@ -2,9 +2,11 @@ const bcrypt = require('bcrypt');
 const { getDB } = require('../db');
 
 async function register(req, res) {
-  const { name, email, password } = req.body;
-  if (!name || !email || !password)
+  const { name, email, password, gender } = req.body;
+  if (!name || !email || !password || !gender)
     return res.status(400).json({ error: 'All fields required' });
+  if (!['male', 'female'].includes(gender))
+    return res.status(400).json({ error: 'Gender must be male or female' });
 
   try {
     const db = getDB();
@@ -16,6 +18,7 @@ async function register(req, res) {
       name,
       email,
       password: hashed,
+      gender,
       createdAt: new Date(),
     });
 
@@ -36,8 +39,8 @@ function logout(req, res, next) {
 }
 
 function getMe(req, res) {
-  const { _id, name, email } = req.user;
-  res.json({ _id, name, email });
+  const { _id, name, email, gender } = req.user;
+  res.json({ _id, name, email, gender });
 }
 
 module.exports = { register, logout, getMe };
