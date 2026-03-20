@@ -1,0 +1,2 @@
+.med-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(10,110,92,0.08); }
+.taken { padding: 5px 12px; font-size: 11.5px; font-weight: 600; cursor: pointer; font-family: inherit; border: 1px solid; transition: all 0.15s; background: transparent; }
