@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Bar from '../components/Bar';
-import './Dashboard.css';
+import '../css/pages/Dashboard.css';
 
 const today = new Date().toISOString().split('T')[0];
 const todayLabel = new Date().toLocaleDateString('en-US', {

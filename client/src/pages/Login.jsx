@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import WaveBackground from '../components/WaveBackground';
 import Logo from '../components/Logo';
-import './Login.css';
+import '../css/pages/Login.css';
 
 export default function Login() {
   const { login } = useAuth();

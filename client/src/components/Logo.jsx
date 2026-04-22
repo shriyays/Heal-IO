@@ -1,4 +1,4 @@
-import './Logo.css';
+import '../css/components/Logo.css';
 
 function Logo() {
   return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Bar from '../components/Bar';
-import './Analytics.css';
+import '../css/pages/Analytics.css';
 
 function getNDaysAgo(n) {
   const d = new Date();

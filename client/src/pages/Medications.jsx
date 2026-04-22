@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Bar from '../components/Bar';
-import './Medications.css';
+import '../css/pages/Medications.css';
 
 const FREQUENCIES = ['Daily', 'Twice daily', 'Three times daily', 'Weekly', 'As needed'];
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Logo from '../components/Logo';
 import Bar from '../components/Bar';
-import './HealthReport.css';
+import '../css/pages/HealthReport.css';
 
 const _d0 = new Date();
 const today = `${_d0.getFullYear()}-${String(_d0.getMonth() + 1).padStart(2, '0')}-${String(_d0.getDate()).padStart(2, '0')}`;

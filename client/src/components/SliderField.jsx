@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import './SliderField.css';
+import '../css/components/SliderField.css';
 
 function SliderField({ label, name, value, onChange, max, color }) {
   const id = `slider-${name}`;

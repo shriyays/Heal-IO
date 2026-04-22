@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import './WaveBackground.css';
+import '../css/components/WaveBackground.css';
 
 const WAVE_DEFS = [
   { y: 0.2, speed: 0.000007, amp: 55, freq: 0.004, color: 'rgba(104,185,157,', lw: 22 },

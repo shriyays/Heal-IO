@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import SliderField from '../components/SliderField';
-import './DailyLog.css';
+import '../css/pages/DailyLog.css';
 
 const d0 = new Date();
 const today = `${d0.getFullYear()}-${String(d0.getMonth() + 1).padStart(2, '0')}-${String(d0.getDate()).padStart(2, '0')}`;

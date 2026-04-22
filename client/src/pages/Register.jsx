@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import WaveBackground from '../components/WaveBackground';
 import Logo from '../components/Logo';
-import './Register.css';
+import '../css/pages/Register.css';
 
 export default function Register() {
   const { register } = useAuth();

@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Logo from './Logo';
-import './Navbar.css';
+import '../css/components/Navbar.css';
 
 const NAV = [
   { to: '/dashboard', icon: '⊞', label: 'Dashboard' },

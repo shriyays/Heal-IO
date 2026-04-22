@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './DoctorVisits.css';
+import '../css/pages/DoctorVisits.css';
 
 const today = new Date().toISOString().split('T')[0];
 
