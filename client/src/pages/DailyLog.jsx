@@ -134,7 +134,7 @@ export default function DailyLog() {
 
   return (
     <div>
-      <div className="pg-title">Daily Log</div>
+      <h1 className="pg-title">Daily Log</h1>
       <div
         style={{
           display: 'flex',

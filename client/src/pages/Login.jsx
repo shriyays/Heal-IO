@@ -37,7 +37,7 @@ export default function Login() {
         <div style={{ marginBottom: 20 }}>
           <Logo />
         </div>
-        <h2>Welcome back</h2>
+        <h1>Welcome back</h1>
         <p className="sub">Sign in to your health journal</p>
 
         {success && (

@@ -105,7 +105,7 @@ export default function HealthReport() {
       {/* ── Screen header ── */}
       <div className="rpt-screen-header">
         <div>
-          <div className="pg-title">Health Report</div>
+          <h1 className="pg-title">Health Report</h1>
           <div className="pg-sub">
             {report
               ? `${from}  →  ${to}  ·  ${report.logs.length} entries`

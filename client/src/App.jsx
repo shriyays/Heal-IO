@@ -26,9 +26,9 @@ function AppLayout() {
         style={{ position: 'relative', zIndex: 1, display: 'flex', width: '100%', height: '100%' }}
       >
         <Navbar />
-        <div className="main">
+        <main className="main">
           <Outlet />
-        </div>
+        </main>
       </div>
     </div>
   );

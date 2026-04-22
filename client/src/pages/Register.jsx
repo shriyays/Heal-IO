@@ -44,7 +44,7 @@ export default function Register() {
         <div style={{ marginBottom: 20 }}>
           <Logo />
         </div>
-        <h2>Create account</h2>
+        <h1>Create account</h1>
         <p className="sub">Start tracking your health today</p>
 
         {error && (

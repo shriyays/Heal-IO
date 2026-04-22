@@ -138,7 +138,7 @@ export default function Medications() {
         }}
       >
         <div>
-          <div className="pg-title">Medications</div>
+          <h1 className="pg-title">Medications</h1>
           <div className="pg-sub">Track daily medications and adherence.</div>
         </div>
         <button className="btn" type="button" onClick={() => setShow(!show)}>

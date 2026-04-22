@@ -80,7 +80,7 @@ export default function DoctorVisits() {
         }}
       >
         <div>
-          <div className="pg-title">Doctor Visits</div>
+          <h1 className="pg-title">Doctor Visits</h1>
           <div className="pg-sub">Complete medical visit history.</div>
         </div>
         <button className="btn" type="button" onClick={() => setShow(!show)}>

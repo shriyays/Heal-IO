@@ -67,7 +67,7 @@ export default function Analytics() {
 
   return (
     <div>
-      <div className="pg-title">Analytics</div>
+      <h1 className="pg-title">Analytics</h1>
       <div style={{ display: 'flex', gap: 7, marginBottom: 20 }}>
         {['7d', '30d', '90d'].map((r) => (
           <button
