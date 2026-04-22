@@ -2,15 +2,19 @@ import PropTypes from 'prop-types';
 import './SliderField.css';
 
 function SliderField({ label, name, value, onChange, max, color }) {
+  const id = `slider-${name}`;
   return (
     <div className="sl-wrap">
       <div className="sl-row">
-        <span className="sl-name">{label}</span>
+        <label className="sl-name" htmlFor={id}>
+          {label}
+        </label>
         <span className="sl-val" style={{ color }}>
           {value}
         </span>
       </div>
       <input
+        id={id}
         type="range"
         name={name}
         min={0}

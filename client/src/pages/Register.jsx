@@ -76,14 +76,15 @@ export default function Register() {
             />
           </div>
           <div>
-            <label className="lbl">Biological Sex</label>
-            <div className="gender-row">
+            <span id="gender-label" className="lbl">Biological Sex</span>
+            <div className="gender-row" role="group" aria-labelledby="gender-label">
               {['female', 'male'].map((g) => (
                 <button
                   key={g}
                   type="button"
                   className={`gender-btn${form.gender === g ? ' on' : ''}`}
                   onClick={() => setForm((f) => ({ ...f, gender: g }))}
+                  aria-pressed={form.gender === g}
                 >
                   {g === 'female' ? 'Female' : 'Male'}
                 </button>
