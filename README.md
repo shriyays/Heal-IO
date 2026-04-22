@@ -11,6 +11,7 @@ A full-stack personal health tracker built for individuals living with chronic i
 - [Versions](#versions)
 - [Project Objective](#project-objective)
 - [Features](#features)
+- [How to Use](#how-to-use)
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [Database Collections](#database-collections)
@@ -85,6 +86,24 @@ Most chronic illness patients see their doctor for only 15 minutes. Heal I/O cap
 - Log visits with doctor name, specialty, notes, and prescriptions
 - Set and track follow-up appointment dates
 - View, edit, and delete visit records
+
+---
+
+## How to Use
+
+Once the app is running (see [Setup & Installation](#setup--installation)) or open the [live app](https://heal-io.onrender.com):
+
+1. **Create an account** — click "Create one" on the login page, enter your name, a valid email, biological sex, and a password (min 8 characters, letters + numbers). You'll be redirected to sign in with a confirmation message.
+2. **Log your day** — go to **Daily Log** and record your mood, energy, pain, sleep, symptoms, and meals. You can pick any past date using the date picker to backfill entries. Hit **Save log** when done.
+3. **Track medications** — go to **Medications** to add your prescriptions (name, dosage, frequency, reminder time). Check them off each day to build an adherence history.
+4. **Record doctor visits** — go to **Doctor Visits** to log appointment notes, prescriptions given, and follow-up dates.
+5. **View your trends** — go to **Analytics** to see 7-day charts, sleep vs. pain correlations, and your top symptoms over time.
+6. **Generate a report** — go to **Health Report**, pick a date range, and use your browser's Print (Ctrl/Cmd + P) to export a PDF to bring to your doctor.
+7. **Dashboard** — your home screen shows today's metrics, a 7-day chart, 28-day activity calendar, and medication adherence at a glance.
+
+**Demo credentials (pre-seeded):**
+- Email: `sara@example.com`
+- Password: `HealIO2024!`
 
 ---
 
