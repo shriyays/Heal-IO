@@ -12,10 +12,17 @@ export default function Register() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
   async function handleSubmit(e) {
     e.preventDefault();
     setError('');
+    if (!form.name.trim()) return setError('Please enter your full name');
+    if (!emailRegex.test(form.email)) return setError('Please enter a valid email address');
     if (!form.gender) return setError('Please select your biological sex');
+    if (form.password.length < 8) return setError('Password must be at least 8 characters');
+    if (!/[A-Za-z]/.test(form.password) || !/[0-9]/.test(form.password))
+      return setError('Password must contain at least one letter and one number');
     if (form.password !== form.confirm) return setError('Passwords do not match');
     setLoading(true);
     try {
@@ -100,7 +107,7 @@ export default function Register() {
               id="reg-password"
               className="inp"
               type="password"
-              placeholder="Min 8 characters"
+              placeholder="Min 8 chars, letters & numbers"
               value={form.password}
               onChange={set('password')}
               required
