@@ -439,7 +439,9 @@ export default function HealthReport() {
                         {Array.isArray(l.meals) && l.meals.length > 0
                           ? l.meals
                               .map((m) =>
-                                typeof m === 'string' ? m : [m.type, m.time, m.food].filter(Boolean).join(' ')
+                                typeof m === 'string'
+                                  ? m
+                                  : [m.type, m.time, m.food].filter(Boolean).join(' ')
                               )
                               .join(', ')
                           : '—'}

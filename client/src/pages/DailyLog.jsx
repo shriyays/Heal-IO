@@ -79,7 +79,10 @@ export default function DailyLog() {
 
   function addMeal() {
     if (mealInput.food.trim()) {
-      setForm((f) => ({ ...f, meals: [...f.meals, { ...mealInput, food: mealInput.food.trim() }] }));
+      setForm((f) => ({
+        ...f,
+        meals: [...f.meals, { ...mealInput, food: mealInput.food.trim() }],
+      }));
       setMealInput({ type: 'Breakfast', time: '', food: '' });
     }
   }
@@ -213,7 +216,9 @@ export default function DailyLog() {
                 onChange={(e) => setMealInput((m) => ({ ...m, type: e.target.value }))}
               >
                 {['Breakfast', 'Lunch', 'Dinner', 'Snack'].map((t) => (
-                  <option key={t} value={t}>{t}</option>
+                  <option key={t} value={t}>
+                    {t}
+                  </option>
                 ))}
               </select>
               <input
@@ -296,13 +301,24 @@ export default function DailyLog() {
                 {form.symptoms
                   .filter((s) => !SYMPTOMS.includes(s))
                   .map((s) => (
-                    <span key={s} className="sym on" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                    <span
+                      key={s}
+                      className="sym on"
+                      style={{ display: 'flex', alignItems: 'center', gap: 4 }}
+                    >
                       {s}
                       <button
                         type="button"
                         onClick={() => removeCustomSym(s)}
                         aria-label={`Remove ${s}`}
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0 0 0 2px', color: 'inherit', opacity: 0.7 }}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          padding: '0 0 0 2px',
+                          color: 'inherit',
+                          opacity: 0.7,
+                        }}
                       >
                         ×
                       </button>

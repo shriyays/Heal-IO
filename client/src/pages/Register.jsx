@@ -83,7 +83,9 @@ export default function Register() {
             />
           </div>
           <div>
-            <span id="gender-label" className="lbl">Biological Sex</span>
+            <span id="gender-label" className="lbl">
+              Biological Sex
+            </span>
             <div className="gender-row" role="group" aria-labelledby="gender-label">
               {['female', 'male'].map((g) => (
                 <button
