@@ -43,7 +43,7 @@ export default function DailyLog() {
 
   const [date, setDate] = useState(today);
   const [form, setForm] = useState(EMPTY);
-  const [mealInput, setMealInput] = useState('');
+  const [mealInput, setMealInput] = useState({ type: 'Breakfast', time: '', food: '' });
   const [symInput, setSymInput] = useState('');
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
@@ -78,14 +78,19 @@ export default function DailyLog() {
   }
 
   function addMeal() {
-    if (mealInput.trim()) {
-      setForm((f) => ({ ...f, meals: [...f.meals, mealInput.trim()] }));
-      setMealInput('');
+    if (mealInput.food.trim()) {
+      setForm((f) => ({ ...f, meals: [...f.meals, { ...mealInput, food: mealInput.food.trim() }] }));
+      setMealInput({ type: 'Breakfast', time: '', food: '' });
     }
   }
 
   function removeMeal(i) {
     setForm((f) => ({ ...f, meals: f.meals.filter((_, j) => j !== i) }));
+  }
+
+  function mealLabel(m) {
+    if (typeof m === 'string') return m;
+    return [m.type, m.time, m.food].filter(Boolean).join(' · ');
   }
 
   function toggleSym(s) {
@@ -200,13 +205,30 @@ export default function DailyLog() {
 
           <div className="card" style={{ marginBottom: 12 }}>
             <div className="sec-lbl">Meals and diet</div>
-            <div style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
+            <div style={{ display: 'flex', gap: 8, marginBottom: 10, flexWrap: 'wrap' }}>
+              <select
+                className="inp"
+                style={{ margin: 0, width: 'auto' }}
+                value={mealInput.type}
+                onChange={(e) => setMealInput((m) => ({ ...m, type: e.target.value }))}
+              >
+                {['Breakfast', 'Lunch', 'Dinner', 'Snack'].map((t) => (
+                  <option key={t} value={t}>{t}</option>
+                ))}
+              </select>
               <input
                 className="inp"
-                style={{ margin: 0, flex: 1 }}
+                type="time"
+                style={{ margin: 0, width: 'auto' }}
+                value={mealInput.time}
+                onChange={(e) => setMealInput((m) => ({ ...m, time: e.target.value }))}
+              />
+              <input
+                className="inp"
+                style={{ margin: 0, flex: 1, minWidth: 140 }}
                 placeholder="e.g. oatmeal with berries"
-                value={mealInput}
-                onChange={(e) => setMealInput(e.target.value)}
+                value={mealInput.food}
+                onChange={(e) => setMealInput((m) => ({ ...m, food: e.target.value }))}
                 onKeyDown={(e) => e.key === 'Enter' && addMeal()}
               />
               <button className="btn" type="button" onClick={addMeal}>
@@ -220,7 +242,7 @@ export default function DailyLog() {
                   className="tag"
                   style={{ background: 'rgba(209,250,229,0.8)', color: '#166534', gap: 5 }}
                 >
-                  {m}
+                  {mealLabel(m)}
                   <button
                     type="button"
                     style={{
@@ -232,7 +254,7 @@ export default function DailyLog() {
                       color: 'inherit',
                     }}
                     onClick={() => removeMeal(i)}
-                    aria-label={`Remove ${m}`}
+                    aria-label={`Remove ${mealLabel(m)}`}
                   >
                     ×
                   </button>

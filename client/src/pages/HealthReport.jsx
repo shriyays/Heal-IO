@@ -435,7 +435,15 @@ export default function HealthReport() {
                       <td>{l.sleep != null ? `${l.sleep}h` : '—'}</td>
                       <td style={{ color: painColor(l.pain), fontWeight: 700 }}>{l.pain ?? '—'}</td>
                       <td style={{ fontSize: 10 }}>{(l.symptoms || []).join(', ') || '—'}</td>
-                      <td style={{ fontSize: 10, maxWidth: 90 }}>{l.meals || '—'}</td>
+                      <td style={{ fontSize: 10, maxWidth: 90 }}>
+                        {Array.isArray(l.meals) && l.meals.length > 0
+                          ? l.meals
+                              .map((m) =>
+                                typeof m === 'string' ? m : [m.type, m.time, m.food].filter(Boolean).join(' ')
+                              )
+                              .join(', ')
+                          : '—'}
+                      </td>
                       <td style={{ fontSize: 10, maxWidth: 120, color: '#6a9a8a' }}>
                         {l.notes || '—'}
                       </td>
